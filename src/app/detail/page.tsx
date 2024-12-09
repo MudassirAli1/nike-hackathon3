@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Item from "/public/assets/items/image4.png"
+import Item from "/assets/items/image4.png"
 import { CiShoppingCart } from "react-icons/ci";
 const Detail =()=> {
   return(

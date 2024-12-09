@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import image from "/public/assets/banner/banner.png"
-import product1 from "/public/assets/items/image1.png"
-import product2 from "/public/assets/items/image2.png"
-import product3 from "/public/assets/items/image3.png"
+import banner from "/public/assets/banner/banner.png"
+import product1 from "/public/assets/items/whiteshoe.png"
+import product2 from "/public/assets/items/greyshoe.png"
+import product3 from "/public/assets/items/fwhiteshoe.png"
 import Dontmiss from "/public/assets/banner/dontmiss.png"
 import Short from "/public/assets/items/short.png"
 import Shirt from "/public/assets/items/shirt.png"
@@ -26,7 +26,7 @@ const Hero = ()=> {
           </p>
         </div>
         <div className="w-full h-auto">
-          <Image src={image} alt="Banner" layout="responsive" height={700} width={1344} />
+          <Image src={banner} alt="Banner" layout="responsive" height={700} width={1344} />
         </div>
     
         <div className="mt-20">
@@ -96,7 +96,7 @@ const Hero = ()=> {
             
             <div className="relative">
               <Image src={product1} alt="Product 1" layout="responsive" height={700} width={700} />
-              <div className="absolute bottom-0 left-0 right-0 bg-white p-4">
+              <div className="absolute bottom-2 left-0 right-0 bg-white p-4">
                 <h5 className="font-medium text-black">Nike Air Max Pulse</h5>
                 <p className="text-gray-500">Women's Shoes</p>
                 <p className="text-black font-bold">₹ 13,995</p>
@@ -113,7 +113,7 @@ const Hero = ()=> {
             <div className="relative">
               <Image src={product3} alt="Product 3" layout="responsive" height={700} width={700} />
               <div className="absolute bottom-0 left-0 right-0 bg-white p-4">
-                <h5 className="font-medium text- black">Nike Air Max 97 SE</h5>
+                <h5 className="font-medium text-black">Nike Air Max 97 SE</h5>
                 <p className="text-gray-500">Women's Shoes</p>
                 <p className="text-black font-bold">₹ 13,995</p>
               </div>
