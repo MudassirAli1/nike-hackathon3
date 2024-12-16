@@ -41,7 +41,7 @@ export default function Nav() {
         <Link href="/detail" className="hover:text-black whitespace-nowrap">Men</Link>
         <Link href="/" className="hover:text-black whitespace-nowrap">Women</Link>
         <Link href="/" className="hover:text-black whitespace-nowrap">Kids</Link>
-        <Link href="/Sale" className="hover:text-black whitespace-nowrap">Sale</Link>
+        <Link href="/Product" className="hover:text-black whitespace-nowrap">Sale</Link>
         <Link href="/detail" className="hover:text-black whitespace-nowrap">SNKRS</Link>
       </nav>
 
