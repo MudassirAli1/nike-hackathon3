@@ -1,4 +1,4 @@
-import react from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Logo from '/public/assets/logo/nikelogo.png'
 import Link from 'next/link'

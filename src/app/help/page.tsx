@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react'
+import React from 'react';
 import { IoSearchOutline } from "react-icons/io5";
 import { BiSolidLike } from "react-icons/bi";
 import { BiSolidDislike } from "react-icons/bi";
@@ -11,8 +11,6 @@ import { MdLocationOn } from "react-icons/md";
 
 const Help = () => {
   return (
-    
-<>
 <div className="w-full h-full mb-10 bg-white">
   <header className="py-8">
     <div className="container bg-white mx-auto px-4">
@@ -45,9 +43,12 @@ const Help = () => {
         <p className="mt-5 text-black">Apple Pay</p>
       </div>
       <div className="mt-10">
-        <p>
-          <Link href={'/'} className="underline text-black">Nike Members</Link><p className='text-black'> can store multiple debit or credit cards in their profile for faster checkout. If you're not already a Member, </p><Link href={'/pages/Joinus'} className="underline text-black">join us</Link><p className='text-black'>today.</p>
-        </p>
+      <div>
+  <Link href={'/'} className="underline text-black">Nike Members</Link>
+  <p className='text-black'>can store multiple debit or credit cards in their profile for faster checkout. If you're not already a Member,</p>
+  <Link href={'/pages/Joinus'} className="underline text-black">join us</Link>
+  <p className='text-black'>today.</p>
+</div>
         <div className=" flex space-x-5 mt-5">
           <Link href={'/pages/Joinus'}>
             <button className="bg-black text-white w-[110px] h-[40px] rounded-3xl text-md">JOIN US</button>
@@ -138,7 +139,7 @@ const Help = () => {
 </div>
 
    
-    </>
+    
   )
 }
 

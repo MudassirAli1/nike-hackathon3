@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Nike from "/public/assets/logo/nikelogo.png"
+import React from "react";
 import Logo from "/public/assets/logo/toplogo.png"
 
 import { CiHeart } from "react-icons/ci";
@@ -17,7 +18,7 @@ export default function Nav() {
 </div>
       <div className="flex md:gap-4 sm:gap-3 gap-2">
         <Link href="/" className="hover:text-gray-800">Find Link Store</Link>
-        <Link href="/" className="hover:text-gray-800">Help</Link>
+        <Link href="/help" className="hover:text-gray-800">Help</Link>
         <Link href="/join" className="hover:text-gray-800">Join us</Link>
         <Link href="/login"  className="hover:text-gray-800">Sign In</Link>
       </div>
