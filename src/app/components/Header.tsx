@@ -18,8 +18,8 @@ export default function Nav() {
       <div className="flex md:gap-4 sm:gap-3 gap-2">
         <Link href="/" className="hover:text-gray-800">Find Link Store</Link>
         <Link href="/" className="hover:text-gray-800">Help</Link>
-        <Link href="/join" className="hover:text-gray-800">Join</Link>
-        <Link href="/login"  className="hover:text-gray-800">Login</Link>
+        <Link href="/join" className="hover:text-gray-800">Join us</Link>
+        <Link href="/login"  className="hover:text-gray-800">Sign In</Link>
       </div>
     </div>
 
@@ -40,8 +40,8 @@ export default function Nav() {
         <Link href="/detail" className="hover:text-black whitespace-nowrap">Men</Link>
         <Link href="/" className="hover:text-black whitespace-nowrap">Women</Link>
         <Link href="/" className="hover:text-black whitespace-nowrap">Kids</Link>
-        <Link href="/detail" className="hover:text-black whitespace-nowrap">Sale</Link>
-        <Link href="/" className="hover:text-black whitespace-nowrap">SNKRS</Link>
+        <Link href="/Sale" className="hover:text-black whitespace-nowrap">Sale</Link>
+        <Link href="/detail" className="hover:text-black whitespace-nowrap">SNKRS</Link>
       </nav>
 
       {/* Right section (Search, Wishlist, Cart) */}
@@ -49,14 +49,14 @@ export default function Nav() {
         {/* Search Bar */}
         <div className="relative hidden md:block">
           <input
-            type="text"
+            type="search"
             placeholder="Search"
-            className="border border-gray-300 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none"
+            className="border border-gray-300 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none text-black"
           />
           <FaSearch className="absolute right-3 top-2.5 text-gray-500" />
         </div>
         <CiHeart className="text-gray-700 md:w-[24px] md:h-[24px] sm:w-[20px] sm:h-[20px] w-[16px] h-[16px]  cursor-pointer hover:text-black" />
-        <IoCartOutline  className="text-gray-700 md:w-[24px] md:h-[24px] sm:w-[20px] sm:h-[20px] w-[16px] h-[16px] cursor-pointer hover:text-black" />
+       <a href="/cart"> <IoCartOutline  className="text-gray-700 md:w-[24px] md:h-[24px] sm:w-[20px] sm:h-[20px] w-[16px] h-[16px] cursor-pointer hover:text-black" /></a>
       </div>
     </div>
 
@@ -66,7 +66,7 @@ export default function Nav() {
         <input
           type="text"
           placeholder="Search"
-          className="border border-gray-300 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none w-full"
+          className="border border-gray-300 rounded-full pl-4 pr-10 py-2 text-sm focus:outline-none w-full "
         />
         <FaSearch className="absolute right-3 top-2.5 text-gray-500" />
 
