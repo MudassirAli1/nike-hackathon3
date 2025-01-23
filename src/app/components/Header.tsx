@@ -17,9 +17,9 @@ export default function Nav() {
  
 </div>
       <div className="flex md:gap-4 sm:gap-3 gap-2">
-        <Link href="/" className="hover:text-gray-800">Find Link Store</Link>
-        <Link href="/help" className="hover:text-gray-800">Help</Link>
-        <Link href="/join" className="hover:text-gray-800">Join us</Link>
+        <Link href="/" className="hover:text-gray-800">Find Link Store </Link>
+        <Link href="/help" className="hover:text-gray-800">Help </Link>
+        <Link href="/join" className="hover:text-gray-800">Join us </Link>
         <Link href="/login"  className="hover:text-gray-800">Sign In</Link>
       </div>
     </div>
@@ -38,10 +38,10 @@ export default function Nav() {
       {/* Center section (Navigation Links) */}
       <nav className="flex gap-4 md:gap-6 text-gray-700 font-medium md:text-[16px] sm:text-[14px] text-[10px] ">
         <Link href="/" className="hover:text-black whitespace-nowrap">New & Featured</Link>
-        <Link href="/detail" className="hover:text-black whitespace-nowrap">Men</Link>
+        <Link href="/" className="hover:text-black whitespace-nowrap">Men</Link>
         <Link href="/" className="hover:text-black whitespace-nowrap">Women</Link>
-        <Link href="/" className="hover:text-black whitespace-nowrap">Kids</Link>
-        <Link href="/Product" className="hover:text-black whitespace-nowrap">Sale</Link>
+        <Link href="/kids" className="hover:text-black whitespace-nowrap">Kids</Link>
+        <Link href="/sale" className="hover:text-black whitespace-nowrap">Sale</Link>
         <Link href="/detail" className="hover:text-black whitespace-nowrap">SNKRS</Link>
       </nav>
 

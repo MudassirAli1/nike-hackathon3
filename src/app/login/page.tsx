@@ -37,7 +37,7 @@ const Login = () => {
           </button>
   
           <div className='h-[24px] mt-4'>
-              <p className="text-[#BCBCBC] text-[12px] text-center">Not a Member <u className="text-black"><Link href={"/joinus"}>Join us?</Link></u></p>
+              <p className="text-[#BCBCBC] text-[12px] text-center">Not a Member <u className="text-black"><Link href={"/join"}>Join us?</Link></u></p>
           </div>
       </div>
   </div>)
