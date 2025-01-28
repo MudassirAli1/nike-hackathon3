@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useCart } from "../../Context/CartContext";
 import client from "@/sanity/lib/client";
 import { useParams } from "next/navigation";
+// Optional: import a wishlist icon if using react-icons
+import { FiHeart } from "react-icons/fi";
 
 const Page = () => {
   const { addToCart } = useCart();
@@ -13,6 +15,7 @@ const Page = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [wishlist, setWishlist] = useState<any[]>([]);
 
   const productName =
     typeof params.products === "string" ? decodeURIComponent(params.products) : "";
@@ -64,6 +67,13 @@ const Page = () => {
     setTimeout(() => {
       setShowPopup(false);
     }, 3000);
+  };
+
+  const handleAddToWishlist = (product: any) => {
+    // Add to wishlist logic (e.g., save to localStorage or wishlist context)
+    const updatedWishlist = [...wishlist, product];
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
   };
 
   if (loading) return <div className="text-black flex justify-center text-9xl my-20">Loading...</div>;
@@ -120,25 +130,34 @@ const Page = () => {
             Price: {product?.price}
           </p>
 
-          <div className="flex justify-center lg:justify-start">
-          <Link rel="stylesheet" href="/cart">
-            <button 
-              onClick={() => handleAddToCart(product)} 
-              className="flex items-center justify-center font-sans font-bold bg-black text-white rounded-[30px] py-3 px-6 w-full max-w-[300px] transition-transform transform hover:scale-105 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black group mb-2"
+          <div className="flex justify-center lg:justify-start space-x-4">
+            {/* Add to Wishlist Button */}
+            <button
+              onClick={() => handleAddToWishlist(product)}
+              className="text-gray-500 p-2 rounded-full transition-transform transform hover:scale-110"
             >
-              
-              <svg 
-                width="30" 
-                height="30" 
-                viewBox="0 0 30 30" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="mr-2 group-hover:animate-bounce"
+              <FiHeart size={30} />
+            </button>
+
+            {/* Add to Cart Button */}
+            <Link href="/cart">
+              <button 
+                onClick={() => handleAddToCart(product)} 
+                className="flex items-center justify-center font-sans font-bold bg-black text-white rounded-[30px] py-3 px-6 w-full max-w-[300px] transition-transform transform hover:scale-105 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black group mb-2"
               >
-                <path d="M3.82324 4.42676L6.33658 4.86176L7.5002 18.725C7.5449 19.2705 7.79364 19.7791 8.19679 20.1493C8.59993 20.5196 9.12785 20.7242 9.6752 20.7223H22.8581C23.3822 20.7229 23.8889 20.5343 24.285 20.191C24.681 19.8478 24.9398 19.3731 25.0138 18.8543L26.1617 10.93C26.1923 10.7193 26.1811 10.5046 26.1286 10.2982C26.0762 10.0918 25.9836 9.89772 25.8561 9.72714C25.7286 9.55656 25.5687 9.41279 25.3856 9.30403C25.2025 9.19528 24.9998 9.12369 24.789 9.09334C24.7117 9.08488 6.74016 9.07884 6.74016 9.07884" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Add To Cart
-            </button></Link> 
+                <svg 
+                  width="30" 
+                  height="30" 
+                  viewBox="0 0 30 30" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className="mr-2 group-hover:animate-bounce"
+                >
+                  <path d="M3.82324 4.42676L6.33658 4.86176L7.5002 18.725C7.5449 19.2705 7.79364 19.7791 8.19679 20.1493C8.59993 20.5196 9.12785 20.7242 9.6752 20.7223H22.8581C23.3822 20.7229 23.8889 20.5343 24.285 20.191C24.681 19.8478 24.9398 19.3731 25.0138 18.8543L26.1617 10.93C26.1923 10.7193 26.1811 10.5046 26.1286 10.2982C26.0762 10.0918 25.9836 9.89772 25.8561 9.72714C25.7286 9.55656 25.5687 9.41279 25.3856 9.30403C25.2025 9.19528 24.9998 9.12369 24.789 9.09334C24.7117 9.08488 6.74016 9.07884 6.74016 9.07884" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Add To Cart
+              </button>
+            </Link>
           </div>
         </div>
       </div>
