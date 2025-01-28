@@ -171,33 +171,34 @@ export default function Sale() {
 
         {/* Products Section */}
         <div className="flex-1">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {filteredProducts.map((product) => (
-              <Link key={product._id} href={`/product/${product.productName}`}>
-                <div className="border p-2 border-gray-300 rounded-lg transition-transform duration-200 transform hover:scale-105">
-                  <div className="flex justify-center">
-                    <Image src={urlFor(product.image).url()} alt={product.productName} width={200} height={200} />
-                  </div>
-                  <p className="h-[28px] font-sans font-medium text-[15px] leading-[28px] text-[#9E3500] m-1">
-                    {product.status}
-                  </p>
-                  <h3 className="h-[24px] font-sans font-medium text-[15px] leading-[24px] text-[#111111]">
-                    {product.productName}
-                  </h3>
-                  <p className="h-[24px] font-sans font-normal text-[12px] leading-[24px] text-[#757575]">
-                    {product.category}
-                  </p>
-                  <p className="h-[24px] font-sans font-normal text-[15px] leading-[24px] text-[#757575]">
-                    {product.colors}
-                  </p>
-                  <p className="h-[24px] font-sans font-medium text-[15px] leading-[28px] text-[#111111]">
-                    MRP: ₹{product.price}
-                  </p>
-                </div>
-              </Link>
-            ))}
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {filteredProducts.map((product) => (
+      <Link key={product._id} href={`/product/${product.productName}`}>
+        <div className="border p-4 border-gray-300 rounded-lg transition-transform duration-200 transform hover:scale-105 flex flex-col h-full">
+          <div className="flex justify-center mb-4">
+            <Image src={urlFor(product.image).url()} alt={product.productName} width={200} height={200} />
           </div>
+          <p className="font-sans font-medium text-[15px] leading-[28px] text-[#9E3500] m-1">
+            {product.status}
+          </p>
+          <h3 className="font-sans font-medium text-[15px] leading-[24px] text-[#111111] truncate">
+            {product.productName}
+          </h3>
+          <p className="font-sans font-normal text-[12px] leading-[24px] text-[#757575] truncate">
+            {product.category}
+          </p>
+          <p className="font-sans font-normal text-[15px] leading-[24px] text-[#757575] truncate">
+            {product.colors}
+          </p>
+          <p className="font-sans font-medium text-[15px] leading-[28px] text-[#111111]">
+            MRP: ₹{product.price}
+          </p>
+          <div className="flex-grow"></div> {/* Ensures equal height */}
         </div>
+      </Link>
+    ))}
+  </div>
+</div>
       </div>
     </div>
   );

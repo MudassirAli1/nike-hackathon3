@@ -87,9 +87,14 @@ const Bestof = () => {
           <motion.div
             className="flex gap-4"
             style={{
-              transform: `translateX(-${currentIndex * (100 / cardsToShow)}%)`,
+              transform: `translateX(-${
+                (currentIndex - Math.floor(cardsToShow / 2)) * (100 / cardsToShow)
+              }%)`,
             }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            transition={{
+              duration: 0.6,
+              ease: "easeInOut",
+            }}
           >
             {products.map((product, index) => (
               <motion.div

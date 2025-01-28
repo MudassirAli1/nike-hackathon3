@@ -1,13 +1,13 @@
 "use client"; 
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { FaRegHeart } from "react-icons/fa";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useCart } from "../Context/CartContext";
 
 const Cart = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const [notification, setNotification] = useState<string | null>(null);
 
   const calculateSubtotal = () => {
     return cartItems.reduce(
@@ -16,8 +16,30 @@ const Cart = () => {
     );
   };
 
+  const showNotification = (message: string) => {
+    setNotification(message);
+    setTimeout(() => setNotification(null), 3000); // Hide notification after 3 seconds
+  };
+
+  const handleRemoveFromCart = (itemId: string) => {
+    removeFromCart(itemId);
+    showNotification("Item removed from cart");
+  };
+
+  const handleUpdateQuantity = (itemId: string, quantity: number) => {
+    updateQuantity(itemId, quantity);
+    showNotification("Quantity updated");
+  };
+
   return (
     <div className="relative mx-auto max-w-6xl p-4">
+      {/* Notification */}
+      {notification && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-black text-white py-2 px-6 rounded-lg shadow-lg transition-opacity duration-300">
+          {notification}
+        </div>
+      )}
+
       <div className="flex flex-col md:flex-row">
         {/* Left Section */}
         <div className="flex-1 md:mr-4">
@@ -25,10 +47,7 @@ const Cart = () => {
             <h4 className="font-semibold text-sm text-black">Free Delivery</h4>
             <p className="text-xs text-black">
               Applies to orders of ₹ 14,000.00 or more.
-              <a href="/" className="text-xs underline text-black">
-                {" "}
-                View Details
-              </a>
+              <a href="/" className="text-xs underline text-black"> View Details</a>
             </p>
             <h1 className="text-xl mt-2 text-black">Bag</h1>
           </div>
@@ -60,7 +79,10 @@ const Cart = () => {
                         min="1"
                         value={item.quantity}
                         onChange={(e) =>
-                          updateQuantity(item.id, parseInt(e.target.value, 10))
+                          handleUpdateQuantity(
+                            item.id,
+                            parseInt(e.target.value, 10)
+                          )
                         }
                         className="w-16 p-1 border rounded text-center text-black border-black"
                       />
@@ -68,7 +90,7 @@ const Cart = () => {
                     <div className="flex mt-2">
                       <button
                         className="text-black hover:text-[#9E3500]"
-                        onClick={() => removeFromCart(item.id)}
+                        onClick={() => handleRemoveFromCart(item.id)}
                       >
                         <RiDeleteBinLine size={20} />
                       </button>

@@ -7,6 +7,8 @@ import Image from "next/image";
 const WishlistPage = () => {
   const { addToCart } = useCart();
   const [wishlist, setWishlist] = useState<any[]>([]);
+  const [notification, setNotification] = useState<string | null>(null);
+  const [showNotif, setShowNotif] = useState<boolean>(false); // For animation
 
   useEffect(() => {
     // Fetch wishlist from localStorage
@@ -16,10 +18,17 @@ const WishlistPage = () => {
     }
   }, []);
 
+  const showNotification = (message: string) => {
+    setNotification(message);
+    setShowNotif(true); // Start animation
+    setTimeout(() => setShowNotif(false), 2500); // Hide after 2.5 seconds
+  };
+
   const handleRemoveFromWishlist = (productId: string) => {
     const updatedWishlist = wishlist.filter((product) => product._id !== productId);
     setWishlist(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    showNotification("Removed from Wishlist");
   };
 
   const handleMoveToCart = (product: any) => {
@@ -31,10 +40,22 @@ const WishlistPage = () => {
       image: product.image,
     });
     handleRemoveFromWishlist(product._id); // Remove from wishlist when added to cart
+    showNotification("Moved to Cart");
   };
 
   return (
     <div className="w-full max-w-[1200px] mx-auto mt-12 px-4 sm:px-6 lg:px-8">
+      {/* Notification */}
+      {notification && (
+        <div
+          className={`fixed top-0 left-1/2 transform -translate-x-1/2 ${
+            showNotif ? "translate-y-0" : "-translate-y-full"
+          } bg-black text-white py-2 px-6 rounded-lg shadow-lg transition-transform duration-500 ease-in-out`}
+        >
+          {notification}
+        </div>
+      )}
+
       <h1 className="text-3xl font-Poppins font-medium text-black text-center mb-6">Wishlist</h1>
 
       {wishlist.length === 0 ? (
@@ -42,7 +63,10 @@ const WishlistPage = () => {
       ) : (
         <div className="space-y-8">
           {wishlist.map((product) => (
-            <div key={product._id} className="flex justify-between items-center p-4 bg-gray-100 rounded-lg shadow-lg">
+            <div
+              key={product._id}
+              className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 rounded-lg shadow-lg space-y-4 sm:space-y-0"
+            >
               <div className="flex items-center space-x-4">
                 <div className="w-24 h-24 relative">
                   <Image
