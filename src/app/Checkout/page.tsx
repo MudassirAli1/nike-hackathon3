@@ -52,37 +52,37 @@ const Checkout = () => {
             <input
               type="text"
               placeholder="First Name"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Last Name"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Address Line 1"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Address Line 2"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Address Line 3"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Postal Code"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
             <input
               type="text"
               placeholder="Locality"
-              className="input-class w-full"
+              className="input-class w-full border border-gray-400 rounded-md"
             />
           </div>
 
@@ -91,12 +91,12 @@ const Checkout = () => {
           <input
             type="email"
             placeholder="Email"
-            className="input-class w-full"
+            className="input-class w-full mb-1 border border-gray-400 rounded-md"
           />
           <input
             type="tel"
             placeholder="Phone Number"
-            className="input-class w-full"
+            className="input-class w-full border border-gray-400 rounded-md"
           />
 
           {/* PAN */}
@@ -104,17 +104,8 @@ const Checkout = () => {
           <input
             type="text"
             placeholder="PAN"
-            className="input-class w-full text-gray-600"
+            className="input-class w-full text-gray-600 border border-gray-400 rounded-md"
           />
-
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={handlePlaceOrder}
-              className="w-full md:w-[500px] h-[50px] bg-black text-white py-2 rounded-3xl transition-transform duration-200 transform hover:scale-105"
-            >
-              Place Order
-            </button>
-          </div>
         </div>
 
         {/* Right Column - Order Summary */}
@@ -152,6 +143,16 @@ const Checkout = () => {
               </div>
             </div>
           ))}
+
+          {/* Place Order Button at the bottom of the Order Summary */}
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={handlePlaceOrder}
+              className="w-full md:w-[500px] h-[50px] bg-black text-white py-2 rounded-3xl transition-transform duration-200 transform hover:scale-105"
+            >
+              Place Order
+            </button>
+          </div>
         </div>
       </div>
     </div>
