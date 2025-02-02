@@ -1,12 +1,10 @@
 "use client";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useCart } from "../../Context/CartContext";
 import client from "@/sanity/lib/client";
 import { useParams } from "next/navigation";
 import { FiHeart } from "react-icons/fi";
-
 const Page = () => {
   const { addToCart } = useCart();
   const params = useParams();
@@ -159,7 +157,7 @@ const Page = () => {
             </button>
 
             {/* Add to Cart Button */}
-            <Link href="/cart">
+            
               <button
                 onClick={() => handleAddToCart(product)}
                 className="flex items-center justify-center font-sans font-bold bg-black text-white rounded-[30px] py-3 px-6 w-full max-w-[300px] transition-transform transform hover:scale-105 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black group mb-2"
@@ -182,7 +180,7 @@ const Page = () => {
                 </svg>
                 Add To Cart
               </button>
-            </Link>
+         
           </div>
         </div>
       </div>
