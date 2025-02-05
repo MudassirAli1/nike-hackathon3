@@ -25,7 +25,8 @@ export default function MenPage() {
   useEffect(() => {
     const fetchMenProducts = async () => {
       try {
-        const query = `*[_type == "product" && category == "Men's Shoes"] {
+        const query = `*[_type == "product" && (category == "Men's Shoes" || category == "Women's Shoes")] 
+ {
           _id,
           productName,
           category,

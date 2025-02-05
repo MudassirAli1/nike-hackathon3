@@ -4,9 +4,39 @@ import Image from "next/image";
 import { FaBox } from "react-icons/fa";
 import { useCart } from "../Context/CartContext";
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  address: string;
+  postalCode: string;
+  city: string;
+  email: string;
+  phone: string;
+  pan: string;
+}
+
 const Checkout = () => {
   const { cartItems } = useCart();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const [formData, setFormData] = useState<FormData>({
+    firstName: "",
+    lastName: "",
+    address: "",
+    postalCode: "",
+    city: "",
+    email: "",
+    phone: "",
+    pan: "",
+  });
 
   const calculateSubtotal = () => {
     return cartItems.reduce(
@@ -15,19 +45,63 @@ const Checkout = () => {
     );
   };
 
-  const handlePlaceOrder = () => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePlaceOrder = async () => {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.address ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.pan
+    ) {
+      alert("Please fill out all the required fields.");
+      return;
+    }
+
     setIsPopupVisible(true);
 
-    // Hide popup after 3 seconds and redirect to home page
-    setTimeout(() => {
-      setIsPopupVisible(false);
-      window.location.href = "/"; // Redirect to the homepage
-    }, 3000);
+    const orderData = {
+      ...formData,
+      cartItems: cartItems.map((item) => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
+    };
+
+    try {
+      const response = await fetch("/api/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Order Stored in Sanity:", data);
+        setTimeout(() => {
+          setIsPopupVisible(false);
+          window.location.href = "/";
+        }, 3000);
+      } else {
+        alert(`Failed to place order: ${data.message}`);
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Failed to place order");
+    }
   };
 
   return (
     <div className="bg-gray-100 min-h-screen py-10 text-black">
-      {/* Popup Notification */}
       {isPopupVisible && (
         <div className="fixed top-0 left-0 right-0 bg-black text-white text-center py-3 z-50">
           Order placed successfully!
@@ -38,9 +112,7 @@ const Checkout = () => {
         {/* Left Column - Form */}
         <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold mb-6">How would you like to get your order?</h2>
-          <p className="text-gray-500">
-            Customs regulation for India requires a copy of the recipient's KYC...
-          </p>
+
           <div className="flex mb-4 border rounded-xl border-gray-300 h-[82px] w-full md:w-[440px] gap-6 items-center pl-6 mt-5">
             <FaBox className="text-xl" />
             <span>Deliver It</span>
@@ -51,38 +123,43 @@ const Checkout = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
               type="text"
+              name="firstName"
               placeholder="First Name"
-              className="input-class w-full border border-gray-400 rounded-md"
+              value={formData.firstName}
+              onChange={handleFormChange}
+              className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
             />
             <input
               type="text"
+              name="lastName"
               placeholder="Last Name"
-              className="input-class w-full border border-gray-400 rounded-md"
+              value={formData.lastName}
+              onChange={handleFormChange}
+              className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
             />
             <input
               type="text"
-              placeholder="Address Line 1"
-              className="input-class w-full border border-gray-400 rounded-md"
+              name="address"
+              placeholder="Address Line"
+              value={formData.address}
+              onChange={handleFormChange}
+              className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
             />
             <input
               type="text"
-              placeholder="Address Line 2"
-              className="input-class w-full border border-gray-400 rounded-md"
-            />
-            <input
-              type="text"
-              placeholder="Address Line 3"
-              className="input-class w-full border border-gray-400 rounded-md"
-            />
-            <input
-              type="text"
+              name="postalCode"
               placeholder="Postal Code"
-              className="input-class w-full border border-gray-400 rounded-md"
+              value={formData.postalCode}
+              onChange={handleFormChange}
+              className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
             />
             <input
               type="text"
-              placeholder="Locality"
-              className="input-class w-full border border-gray-400 rounded-md"
+              name="city"
+              placeholder="City"
+              value={formData.city}
+              onChange={handleFormChange}
+              className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
             />
           </div>
 
@@ -90,21 +167,30 @@ const Checkout = () => {
           <h3 className="text-lg font-semibold mt-6 mb-4">What's your contact information?</h3>
           <input
             type="email"
+            name="email"
             placeholder="Email"
-            className="input-class w-full mb-1 border border-gray-400 rounded-md"
+            value={formData.email}
+            onChange={handleFormChange}
+            className="input-class w-full mb-1 border border-gray-400 rounded-md py-1 pl-[5px]"
           />
           <input
             type="tel"
+            name="phone"
             placeholder="Phone Number"
-            className="input-class w-full border border-gray-400 rounded-md"
+            value={formData.phone}
+            onChange={handleFormChange}
+            className="input-class w-full border border-gray-400 rounded-md py-1 pl-[5px]"
           />
 
           {/* PAN */}
           <h3 className="text-lg font-semibold mt-6 mb-4">What's your PAN?</h3>
           <input
             type="text"
+            name="pan"
             placeholder="PAN"
-            className="input-class w-full text-gray-600 border border-gray-400 rounded-md"
+            value={formData.pan}
+            onChange={handleFormChange}
+            className="input-class w-full text-gray-600 border border-gray-400 rounded-md py-1 pl-[5px]"
           />
         </div>
 
@@ -137,22 +223,16 @@ const Checkout = () => {
               />
               <div>
                 <p className="font-medium">{item.name}</p>
-                <p className="text-sm text-gray-500">
-                  Quantity: {item.quantity}
-                </p>
+                <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
               </div>
             </div>
           ))}
-
-          {/* Place Order Button at the bottom of the Order Summary */}
-          <div className="mt-6 flex justify-center">
-            <button
-              onClick={handlePlaceOrder}
-              className="w-full md:w-[500px] h-[50px] bg-black text-white py-2 rounded-3xl transition-transform duration-200 transform hover:scale-105"
-            >
-              Place Order
-            </button>
-          </div>
+          <button
+            onClick={handlePlaceOrder}
+            className="btn-primary w-full py-2 text-center rounded-md bg-black text-white hover:bg-gray-800"
+          >
+            Place Order
+          </button>
         </div>
       </div>
     </div>

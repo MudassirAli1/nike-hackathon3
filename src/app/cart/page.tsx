@@ -1,4 +1,5 @@
-"use client"; 
+"use client";
+
 import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -29,6 +30,16 @@ const Cart = () => {
   const handleUpdateQuantity = (itemId: string, quantity: number) => {
     updateQuantity(itemId, quantity);
     showNotification("Quantity updated");
+  };
+
+  const handleIncrement = (itemId: string, quantity: number) => {
+    handleUpdateQuantity(itemId, quantity + 1);
+  };
+
+  const handleDecrement = (itemId: string, quantity: number) => {
+    if (quantity > 1) {
+      handleUpdateQuantity(itemId, quantity - 1);
+    }
   };
 
   return (
@@ -74,18 +85,21 @@ const Cart = () => {
                     <p className="text-gray-600">Price: ₹ {item.price}</p>
                     <div className="flex items-center mt-2">
                       <label className="mr-2 text-black">Quantity:</label>
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.quantity}
-                        onChange={(e) =>
-                          handleUpdateQuantity(
-                            item.id,
-                            parseInt(e.target.value, 10)
-                          )
-                        }
-                        className="w-16 p-1 border rounded text-center text-black border-black"
-                      />
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => handleDecrement(item.id, item.quantity)}
+                          className="p-2 text-white bg-black hover:bg-gray-700 rounded-[5px] transition duration-300"
+                        >
+                          -
+                        </button>
+                        <span className="px-4 text-black">{item.quantity}</span>
+                        <button
+                          onClick={() => handleIncrement(item.id, item.quantity)}
+                          className="p-2 text-white bg-black hover:bg-gray-700 rounded-[5px] transition duration-300"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                     <div className="flex mt-2">
                       <button
@@ -124,10 +138,8 @@ const Cart = () => {
                 ₹ {calculateSubtotal().toFixed(2)}
               </p>
             </div>
-            <Link href="/Checkout">
-              <button className="w-full mt-4 bg-[#111111] text-white py-2 rounded-[30px] transition-transform duration-200 transform hover:scale-105">
-                Member Checkout
-              </button>
+            <Link href="/Checkout" className="mt-4 block text-center bg-black text-white py-2 rounded">
+              Proceed to Checkout
             </Link>
           </div>
         </div>

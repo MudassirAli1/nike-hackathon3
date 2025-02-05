@@ -16,16 +16,16 @@ interface Product {
   colors: string;
 }
 
-export default function MenPage() {
+export default function WomenPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<string>("");
   const [selectedSortOption, setSelectedSortOption] = useState<string>("");
 
   useEffect(() => {
-    const fetchMenProducts = async () => {
+    const fetchWomenProducts = async () => {
       try {
-        const query = `*[_type == "product" && category == "Men's Shoes"] {
+        const query = `*[_type == "product" && category == "Women's Shoes"] {
           _id,
           productName,
           category,
@@ -39,11 +39,11 @@ export default function MenPage() {
         setProducts(data);
         setFilteredProducts(data);
       } catch (error) {
-        console.error("Error fetching men's products:", error);
+        console.error("Error fetching women's products:", error);
       }
     };
 
-    fetchMenProducts();
+    fetchWomenProducts();
   }, []);
 
   const handlePriceRangeChange = (range: string) => {
@@ -95,7 +95,7 @@ export default function MenPage() {
     <div className="relative w-full max-w-[1440px] mx-auto bg-white py-10">
       {/* Header Section */}
       <div className="w-full h-[51px] bg-white flex items-center justify-between px-4">
-        <h1 className="text-[24px] font-sans font-medium text-black truncate">Men's Products</h1>
+        <h1 className="text-[24px] font-sans font-medium text-black truncate">Women's Products</h1>
         <div className="flex items-center gap-4">
           <select
             value={selectedSortOption}
